@@ -20,16 +20,15 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject pipes = PipePool.Instance.GetPipe();
+        GameObject pipe = PipePool.Instance.GetPipe();
     
-        if (pipes != null)
+        if (pipe != null)
         {
-            pipes.transform.position = transform.position + Vector3.up * Random.Range(minHeight, maxHeight);
+            pipe.transform.position = transform.position + Vector3.up * Random.Range(minHeight, maxHeight);
         }
         else
         {
             Debug.LogError("Pipe cannot be spawned because it is null.");
         }
     }
-
 }

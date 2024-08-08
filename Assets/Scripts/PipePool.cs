@@ -19,40 +19,53 @@ public class PipePool : MonoBehaviour
             Destroy(gameObject);
         }
 
+        InitializePool();
+    }
+
+    private void InitializePool()
+    {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject pipe = Instantiate(pipePrefab);
-            pipe.SetActive(false);
-            poolQueue.Enqueue(pipe);
+            GameObject pipeInstance = Instantiate(pipePrefab);
+            pipeInstance.SetActive(false);
+            poolQueue.Enqueue(pipeInstance);
         }
     }
 
     public GameObject GetPipe()
     {
-        GameObject pipe = poolQueue.Dequeue();
-
-        if (pipe == null || !pipe.activeInHierarchy)
+        if (poolQueue.Count == 0)
         {
-            // Eğer boru null veya yok edilmişse, yeni bir tane oluştur
+            // Poolda hiç obje yoksa yeni bir tane oluştur
+            GameObject newPipe = Instantiate(pipePrefab);
+            newPipe.SetActive(false);
+            return newPipe;
+        }
+
+        GameObject pipe = poolQueue.Dequeue();
+        if (pipe != null && !pipe.activeInHierarchy)
+        {
+            pipe.SetActive(true);
+        }
+        else
+        {
+            // Eğer obje devre dışı ise yenisini oluştur
             pipe = Instantiate(pipePrefab);
         }
 
-        pipe.SetActive(true);
         poolQueue.Enqueue(pipe);
         return pipe;
     }
-
 
     public void ResetAllPipes()
     {
         foreach (var pipe in poolQueue)
         {
-            if (pipe != null)  // Null kontrolü ekliyoruz
+            if (pipe != null)
             {
-                pipe.SetActive(false);  // Boruları devre dışı bırakıyoruz
-                pipe.transform.position = Vector3.zero;  // Boruların pozisyonunu sıfırlıyoruz
+                pipe.SetActive(false);
+                pipe.transform.position = Vector3.zero;
             }
         }
     }
-
 }

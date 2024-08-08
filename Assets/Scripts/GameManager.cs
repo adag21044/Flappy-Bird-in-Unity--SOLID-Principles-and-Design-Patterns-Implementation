@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }  // Singleton Instance
-
+    public static GameManager Instance { get; private set; }
     public Player player;
     public Text scoreText;
     public GameObject PlayButton;
@@ -16,15 +15,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // Optional: Keep across scenes
+            DontDestroyOnLoad(gameObject);
+            Application.targetFrameRate = 60;
+            Pause();
         }
         else
         {
             Destroy(gameObject);
         }
-
-        Application.targetFrameRate = 60;
-        Pause();
     }
 
     public void Play()
@@ -35,8 +33,8 @@ public class GameManager : MonoBehaviour
         gameOver.SetActive(false);
         Time.timeScale = 1f;
         player.enabled = true;
-        PipePool.Instance.ResetAllPipes();  // Pipes resetleniyor
-        player.ResetPlayer();  // Player pozisyonu sıfırlanıyor
+        PipePool.Instance.ResetAllPipes();
+        player.ResetPlayer();
     }
 
     public void Pause()
@@ -54,7 +52,7 @@ public class GameManager : MonoBehaviour
     
     public void ResetGame()
     {
-        Play();  // Oyun sahnesini sıfırdan başlatıyor
+        Play();
     }
 
     public void IncreaseScore()
