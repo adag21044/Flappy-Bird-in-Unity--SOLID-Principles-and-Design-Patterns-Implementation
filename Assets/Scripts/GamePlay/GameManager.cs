@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,11 @@ public class GameManager : MonoBehaviour
     public Text highScoreText;
     public GameObject playButton;
     public GameObject gameOver;
-    [SerializeField]private int score;
-    [SerializeField]private int highScore;
+
+    [SerializeField] private int score;
+    [SerializeField] private int highScore;
+
+    private List<IHighScoreObserver> highScoreObservers = new List<IHighScoreObserver>();
 
     private void Awake()
     {
@@ -47,10 +51,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         player.enabled = false;
     }
-    
+
     public void GameOver()
     {
-        gameOver.SetActive(true);  
+        gameOver.SetActive(true);
         playButton.SetActive(true);
         Pause();
 
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             highScore = score;
             SaveHighScore();
+            NotifyHighScoreObservers();
         }
 
         highScoreText.text = "High Score: " + highScore.ToString();
@@ -72,6 +77,24 @@ public class GameManager : MonoBehaviour
     {
         score++;
         scoreText.text = score.ToString();
+    }
+
+    public void AddHighScoreObserver(IHighScoreObserver observer)
+    {
+        highScoreObservers.Add(observer);
+    }
+
+    public void RemoveHighScoreObserver(IHighScoreObserver observer)
+    {
+        highScoreObservers.Remove(observer);
+    }
+
+    private void NotifyHighScoreObservers()
+    {
+        foreach (var observer in highScoreObservers)
+        {
+            observer.OnHighScoreChanged(highScore);
+        }
     }
 
     private void SaveHighScore()
