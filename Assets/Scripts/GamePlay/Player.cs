@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public float gravity = -9.8f;
     public float strength = 5f;
     private float spriteAnimationRate = 0.15f;
+    
+    private float minYPosition = -3.24f; // Yanma pozisyonu
 
     private void Awake()
     {
@@ -57,6 +59,12 @@ public class Player : MonoBehaviour
         
         direction.y += gravity * Time.deltaTime;
         transform.position += direction * Time.deltaTime;
+
+        // Y pozisyonunu kontrol et
+        if (transform.position.y <= minYPosition)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
