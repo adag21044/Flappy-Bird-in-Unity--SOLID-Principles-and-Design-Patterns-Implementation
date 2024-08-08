@@ -23,7 +23,7 @@ public static class SaveManager
         }
         else
         {
-            return 0; // Eğer dosya yoksa 0 dön
+            return 0; // If no file exists, return 0
         }
     }
 }
