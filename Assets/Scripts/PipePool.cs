@@ -30,10 +30,18 @@ public class PipePool : MonoBehaviour
     public GameObject GetPipe()
     {
         GameObject pipe = poolQueue.Dequeue();
+
+        if (pipe == null || !pipe.activeInHierarchy)
+        {
+            // Eğer boru null veya yok edilmişse, yeni bir tane oluştur
+            pipe = Instantiate(pipePrefab);
+        }
+
         pipe.SetActive(true);
         poolQueue.Enqueue(pipe);
         return pipe;
     }
+
 
     public void ResetAllPipes()
     {
