@@ -1,11 +1,9 @@
 using System;
-using System.IO.Pipes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject prefab;
     public float spawnRate = 1f;
     public float minHeight = -1f;
     public float maxHeight = 1f;
@@ -22,7 +20,13 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);
-        pipes.transform.position += Vector3.up * Random.Range(minHeight, maxHeight);
+        GameObject pipes = PipePool.Instance.GetPipe();
+        if (pipes == null)
+        {
+            pipes = Instantiate(PipePool.Instance.pipePrefab);
+            pipes.SetActive(false);  // Bu noktada hala pipe'ı pool'a ekleyebiliriz
+        }
+        pipes.transform.position = transform.position + Vector3.up * Random.Range(minHeight, maxHeight);
     }
+
 }

@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
     }
 
-    private void OnEnable()
+    public void ResetPlayer()
     {
         Vector3 position = transform.position;
         position.y = 0f;
@@ -60,14 +60,13 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.CompareTag("Obstacle"))
         {
-            FindObjectOfType<GameManager>().GameOver();
+            GameManager.Instance.GameOver();
         }
-        else
-        if(other.gameObject.tag == "Scoring")
+        else if (other.gameObject.CompareTag("Scoring"))
         {
-            FindObjectOfType<GameManager>().IncreaseScore();
+            GameManager.Instance.IncreaseScore();
         }
     }
 }

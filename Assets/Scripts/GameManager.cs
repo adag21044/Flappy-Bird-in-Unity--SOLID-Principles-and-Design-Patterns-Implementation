@@ -1,9 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }  // Singleton Instance
+
     public Player player;
     public Text scoreText;
     public GameObject PlayButton;
@@ -12,6 +13,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // Optional: Keep across scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         Application.targetFrameRate = 60;
         Pause();
     }
@@ -24,12 +35,8 @@ public class GameManager : MonoBehaviour
         gameOver.SetActive(false);
         Time.timeScale = 1f;
         player.enabled = true;
-        Pipes[] pipes = FindObjectsOfType<Pipes>();
-
-        for (int i = 0; i < pipes.Length; i++)
-        {
-            Destroy(pipes[i].gameObject);
-        }
+        PipePool.Instance.ResetAllPipes();  // Pipes resetleniyor
+        player.ResetPlayer();  // Player pozisyonu sıfırlanıyor
     }
 
     public void Pause()
@@ -44,6 +51,12 @@ public class GameManager : MonoBehaviour
         PlayButton.SetActive(true);
         Pause();
     }
+    
+    public void ResetGame()
+    {
+        Play();  // Oyun sahnesini sıfırdan başlatıyor
+    }
+
     public void IncreaseScore()
     {
         score++;

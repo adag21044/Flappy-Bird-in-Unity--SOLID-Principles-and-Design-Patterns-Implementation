@@ -483,7 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111063429201c494484356148dfbaf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationSpeed: 0.05
 --- !u!1 &767211508
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111063429201c494484356148dfbaf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationSpeed: 1
 --- !u!61 &767211513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -899,7 +897,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3e5da55449448429a624d50b28a7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6530209028749027562, guid: 16f5198555af8054283f548540933bdd, type: 3}
   spawnRate: 1
   minHeight: -1
   maxHeight: 2
@@ -958,6 +955,52 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609612315}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1892772449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892772451}
+  - component: {fileID: 1892772450}
+  m_Layer: 0
+  m_Name: PipePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1892772450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892772449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2161ae11c53483fb030e15e6bd8e726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipePrefab: {fileID: 6530209028749027562, guid: 16f5198555af8054283f548540933bdd, type: 3}
+  poolSize: 5
+--- !u!4 &1892772451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892772449}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1205,3 +1248,4 @@ SceneRoots:
   - {fileID: 1609612317}
   - {fileID: 451333384}
   - {fileID: 196563240}
+  - {fileID: 1892772451}

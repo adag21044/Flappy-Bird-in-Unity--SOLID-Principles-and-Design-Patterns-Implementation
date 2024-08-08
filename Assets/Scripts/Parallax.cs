@@ -1,19 +1,17 @@
 using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Parallax : MonoBehaviour
 {
-    private MeshRenderer meshRenderer;
-    public float animationSpeed = 1f;
+    private IParallaxStrategy parallaxStrategy;
 
-    private void Awake()
+    public void SetStrategy(IParallaxStrategy strategy)
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        parallaxStrategy = strategy;
     }
 
     private void Update()
     {
-        meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
+        parallaxStrategy?.Move(transform);
     }
 }
