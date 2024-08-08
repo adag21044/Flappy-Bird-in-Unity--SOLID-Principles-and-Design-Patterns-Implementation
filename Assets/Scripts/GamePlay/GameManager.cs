@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public Text highScoreText;
     public GameObject playButton;
     public GameObject gameOver;
-    private int score;
-    private int highScore;
+    [SerializeField]private int score;
+    [SerializeField]private int highScore;
 
     private void Awake()
     {
